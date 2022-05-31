@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- css file -->
+    <link rel="stylesheet" href="css/login.css">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="forms-container">
+            <div class="login-regist">
+
+                <!-- form login -->
+                <form action="#" class="login-form">
+                    <h2 class="title">Login</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <input type="submit" value="Login" class="btn solid" />
+                </form>
+
+                <!-- form register -->
+                <form action="#" class="regist-form">
+                    <h2 class="title">Registration</h2>
+                    <div class="input-field">
+                        <i class="fa-solid fa-id-card"></i>
+                        <input type="text" placeholder="Full Name" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="tel" placeholder="Phone Number" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <input type="password" placeholder="Confirm Password" />
+                    </div>
+                    <input type="submit" class="btn" value="Register" />
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Belum punya akun ?</h3>
+                    <p>
+                        Ayo segera daftar akun Anda disini !
+                    </p>
+                    <button class="btn transparent" id="regist-btn">Register</button>
+                </div>
+                <img src="img/login2.svg" class="image" alt="Login" />
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>Sudah punya akun ?</h3>
+                    <p>
+                        Ayo masuk ke akun Anda disini !
+                    </p>
+                    <button class="btn transparent" id="login-btn">Login</button>
+                </div>
+                <img src="img/register.svg" class="image" alt="Register" />
+            </div>
+        </div>
+    </div>
+
+    <!-- file javascript -->
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

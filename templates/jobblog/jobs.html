@@ -81,66 +81,34 @@
                         <input type="text" placeholder="job title, keywords or company name" value="" />
                         <div class="clearfix"></div>
                     </form>
-
+                  {% for post in posts %}
                     <ul class="job-list full">
 
                         <li>
-                            <a href="job-detail.html">
-                                <img src="img/loop-studios.svg" alt="">
+                            <a href="{% url 'jobblog:post' post.id post.slug %}">
+                                {% if post.logo %}
+                                  <img src="{{ post.logo }}" alt="{{ post.title }}">
+                                {% endif %}
                                 <div class="job-list-content">
-                                    <h4>Logo Designer <span class="full-time">Full-Time</span></h4>
+                                    <h4>{{ post.title }}<span class="full-time">{{ post.job_type }}</span></h4>
                                     <div class="job-icons">
-                                        <span><i class="fa fa-briefcase"></i> Loop Studios</span>
-                                        <span><i class="fa fa-map-marker"></i> Bogor</span>
-                                        <span><i class="fa fa-money"></i> Rp 6jt</span>
+                                        <span><i class="fa fa-briefcase"></i>{{ post.company_name }}</span>
+                                        <span><i class="fa fa-map-marker"></i> {{ post.location }}</span>
+                                        <span><i class="fa fa-money"></i> {{ post.salary }}</span>
                                     </div>
-                                    <p> Loop Studios is one of the leading companies in our field in the area. We are hiring a talented UI Designer professional to join our team. If you're excited to be part of a winning team, Loop Studios is a great place
-                                        to grow your career. You'll be glad you applied to Loop Studios.
+                                    <p> 
+                                      {{ post.description|truncatewords:60 }}
                                     </p>
                                 </div>
                             </a>
                             <div class="clearfix"></div>
                         </li>
-
-                        <li>
-                            <a href="job-detail.html">
-                                <img src="img/faceit.svg" alt="">
-                                <div class="job-list-content">
-                                    <h4>Data Scientist <span class="full-time">Full-Time</span></h4>
-                                    <div class="job-icons">
-                                        <span><i class="fa fa-briefcase"></i> FaceIT</span>
-                                        <span><i class="fa fa-map-marker"></i> Bogor</span>
-                                        <span><i class="fa fa-money"></i> Rp 10jt</span>
-                                    </div>
-                                    <p>FaceIT is one of the leading companies in our field in the area. We are hiring a talented Data Scientist professional to join our team. If you're excited to be part of a winning team, FaceIT is a great place to grow
-                                        your career. You'll be glad you applied to FaceIT.</p>
-                                </div>
-                            </a>
-                            <div class="clearfix"></div>
-                        </li>
-
-                        <li>
-                            <a href="job-detail.html">
-                                <img src="img/account.svg" alt="">
-                                <div class="job-list-content">
-                                    <h4>Cyber Security <span class="part-time">Part-Time</span></h4>
-                                    <div class="job-icons">
-                                        <span><i class="fa fa-briefcase"></i> Account</span>
-                                        <span><i class="fa fa-map-marker"></i> Bogor</span>
-                                        <span><i class="fa fa-money"></i> Rp 8jt</span>
-                                    </div>
-                                    <p>Account is one of the leading companies in our field in the area. We are hiring a talented Cyber Security professional to join our team. If you're excited to be part of a winning team, Account is a great place to grow
-                                        your career. You'll be glad you applied to Account.
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="clearfix"></div>
-                        </li>
+                  {% endfor %}
 
                     </ul>
 
                     <div class="clearfix"></div>
-                    <!-- ======================================== end of Content =======================================-->
+          <!-- ======================================== end of Content =======================================-->
 
                     <!-- pagination -->
 
@@ -258,12 +226,12 @@
                 <div class="three columns">
                     <h4>Menu Links</h4>
                     <ul class="footer-links">
-                        <li>
-                            <a href="index.html"> <i class="fas fa-arrow-right"></i> Home </a>
-                        </li>
-                        <li>
-                            <a href="jobs.html"> <i class="fas fa-arrow-right"></i> Job List </a>
-                        </li>
+                      <li>
+                        <a href="{% url 'jobblog:home' %}"> <i class="fas fa-arrow-right"></i> Home </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'jobblog:jobs' %}"> <i class="fas fa-arrow-right"></i> Job List </a>
+                      </li>
                         <li>
                             <a href="#footer"> <i class="fas fa-arrow-right"></i> About Us </a>
                         </li>

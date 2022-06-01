@@ -12,33 +12,35 @@ from django.conf import settings
 # Create your models here.
 class Post(models.Model):
     jobtype = [
-        ("full-time", "full-time"),
-        ("part-time", "part-time"),
+        ("Full-time", "Full-time"),
+        ("Part-time", "Part-time"),
     ]
     categories = [
-        ("webdev", "Web Developers"),
-        ("mobiledev", "Mobile Developers"),
-        ("ui_ux", "UI/UX Designer"),
-        ("mleng", "Machine Learning Engineer"),
-        ("ds", "Data Scientist"),
-        ("gamedev", "Game Developer"),
-        ("isse", "Security Engineer"),
+        ("Web Developers", "Web Developers"),
+        ("Mobile Developers", "Mobile Developers"),
+        ("UI/UX Designer", "UI/UX Designer"),
+        ("Machine Learning Engineer", "Machine Learning Engineer"),
+        ("Data Scientist", "Data Scientist"),
+        ("Game Developer", "Game Developer"),
+        ("Security Engineer", "Security Engineer"),
     ]
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=50, null=True)
     # company = models.CharField(max_length=70)
     salary = models.CharField(max_length=50, null=True)
-    job_type = models.CharField(max_length=20, choices=jobtype)
+    job_type = models.CharField(max_length=50, choices=jobtype)
     category = models.CharField(max_length=50, choices=categories)
     description = models.TextField()
     hours = models.CharField(max_length=50, null=True)
 
     company_name = models.CharField(max_length=100)
-    website = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to="", blank=True, null=True)
+    website = models.CharField(max_length=200)
+    logo = models.ImageField(
+        default="img/account.svg", upload_to="logo", blank=True, null=True
+    )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):

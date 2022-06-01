@@ -7,16 +7,17 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
+    PostHome,
 )
 from django.conf.urls.static import static
 from django.conf import settings
 
 app_name = "jobblog"
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", PostHome.as_view(), name="home"),
     path("post/job", PostListView.as_view(), name="jobs"),
     path(
-        "post/<int:pk>/", PostDetailView.as_view(), name="post-detail"
+        "post/<int:pk>/<slug:slug>", PostDetailView.as_view(), name="post"
     ),  # select spesific post
     path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),

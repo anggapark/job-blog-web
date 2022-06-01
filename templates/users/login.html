@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+
+    <!-- css file -->
+    <link rel="stylesheet" href="{% static 'css/login-register.css'%}">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+    <img class="wave" src="{% static 'img/wave-left.png'%}">
+
+    <div class="container">
+        <div class="img">
+            <img src="{% static 'img/login2.svg'%}">
+        </div>
+
+        <!-- form login -->
+        <div class="login-content">
+            <form method="POST">
+            {% csrf_token %}
+                <img src="{% static 'img/avatar.svg'%}">
+                <h2 class="title">Welcome</h2>
+                <!-- username -->
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="id_username" name="username" value='{{ form.username.value|default:"" }}' placeholder="Username" />
+                    {% if form.username.errors %}
+                    <div class="invalid-feedback">{{ form.username.errors }}</div>
+                    {% endif %}
+                    </div>
+                <!-- password -->
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password"  class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+                    id="id_password" name="password" value='{{ form.password.value|default:"" }}' placeholder="Password" />
+                    {% if form.password.errors %}
+                      <div class="invalid-feedback">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <p>Don't Have an Account?<a href="{% url 'users:register' %}">Register Here!</a></p>
+                <!-- <input type="submit" class="btn" value="login"> -->
+                <button class="btn" type="submit" name="login" >Login</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

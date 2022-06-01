@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +9,10 @@
     <title>Manage Job</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/delete-modal.css">
-    <link rel="stylesheet" href="css/green.css" id="colors">
-    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/delete-modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/green.css' %}" id="colors">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -234,7 +235,7 @@
 
             <!-- Scripts for delete modal -->
             <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
             <script>
                 $('#confirm-delete').on('show.bs.modal', function(e) {
                     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
@@ -244,16 +245,16 @@
             </script>
 
             <!-- Scripts for all -->
-            <script src="js/jquery-2.1.3.min.js"></script>
-            <script src="js/custom.js"></script>
-            <script src="js/jquery.superfish.js"></script>
-            <script src="js/jquery.themepunch.tools.min.js"></script>
-            <script src="js/jquery.themepunch.revolution.min.js"></script>
-            <script src="js/jquery.flexslider-min.js"></script>
-            <script src="js/chosen.jquery.min.js"></script>
-            <script src="js/jquery.magnific-popup.min.js"></script>
-            <script src="js/jquery.jpanelmenu.js"></script>
-            <script src="js/stacktable.js"></script>
+            <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+            <script src="{% static 'js/custom.js' %}"></script>
+            <script src="{% static 'js/jquery.superfish.js' %}"></script>
+            <script src="{% static 'js/jquery.themepunch.tools.min.js' %}"></script>
+            <script src="{% static 'js/jquery.themepunch.revolution.min.js' %}"></script>
+            <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+            <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+            <script src="{% static 'js/jquery.jpanelmenu.js' %}"></script>
+            <script src="{% static 'js/stacktable.js' %}"></script>
+            <script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
 
 </body>
 

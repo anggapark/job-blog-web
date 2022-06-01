@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +10,8 @@
     <title>Job Detail</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/green.css" id="colors">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/green.css' %}" id="colors">
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -28,20 +29,20 @@
                     <!-- Logo -->
                     <div id="logo">
                         <h1>
-                            <a href="index.html"><img src="img/logo-home.png" alt="Job IT" /></a>
+                            <a href="index.html"><img src="{% static 'img/logo-home.png' %}" alt="Job IT" /></a>
                         </h1>
                     </div>
 
                     <!-- Menu -->
                     <nav id="navigation" class="menu">
                         <ul id="responsive">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="jobs.html">Job List</a></li>
-                            <li><a href="add-job.html">Post a Job</a></li>
+                            <li><a href="{% url 'jobblog:home' %}" id="current">Home</a></li>
+                            <li><a href="{% url 'jobblog:jobs' %}">Job List</a></li>
+                            <li><a href="{% url 'jobblog:post-create' %}">Post a Job</a></li>
                             <li><a href="manage-jobs.html">Manage Jobs</a></li>
                         </ul>
                         <ul class="float-right">
-                            <li><a href="login-register.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                            <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                         </ul>
                     </nav>
 
@@ -68,7 +69,7 @@
         </div>
 
 
-        <!-- Content -->
+        <!-- ======================================== Content ==================================================-->
         <div class="container">
 
             <!-- Recent Jobs -->
@@ -77,7 +78,7 @@
 
                     <!-- Company Info -->
                     <div class="company-info">
-                        <img src="img/loop-studios.svg" alt="">
+                        <img src="{% static 'img/loop-studios.svg' %}" alt="">
                         <div class="content">
                             <h4>Loop Studios</h4>
                             <span><a href="#"><i class="fa fa-link"></i> Website</a></span>
@@ -164,7 +165,7 @@
 
 
         </div>
-
+        <!-- ======================================== end of Content ========================================-->
 
         <!-- Footer -->
 
@@ -183,10 +184,10 @@
                     <h4>Menu Links</h4>
                     <ul class="footer-links">
                         <li>
-                            <a href="index.html"> <i class="fas fa-arrow-right"></i> Home </a>
+                            <a href="{% url 'jobblog:home' %}"> <i class="fas fa-arrow-right"></i> Home </a>
                         </li>
                         <li>
-                            <a href="jobs.html"> <i class="fas fa-arrow-right"></i> Job List </a>
+                            <a href="{% url 'jobblog:jobs' %}"> <i class="fas fa-arrow-right"></i> Job List </a>
                         </li>
                         <li>
                             <a href="#footer"> <i class="fas fa-arrow-right"></i> About Us </a>
@@ -250,16 +251,16 @@
 
 
     <!-- Scripts -->
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/jquery.superfish.js"></script>
-    <script src="js/jquery.themepunch.tools.min.js"></script>
-    <script src="js/jquery.themepunch.revolution.min.js"></script>
-    <script src="js/jquery.flexslider-min.js"></script>
-    <script src="js/chosen.jquery.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.jpanelmenu.js"></script>
-    <script src="js/stacktable.js"></script>
+    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/jquery.superfish.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.jpanelmenu.js' %}"></script>
+    <script src="{% static 'js/stacktable.js' %}"></script>
+    <script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
 
 
 </body>

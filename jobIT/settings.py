@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "jobblog",  # blog app
     "users",
     "phonenumber_field",
+    "ckeditor",
+    "widget_tweaks",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -139,6 +141,14 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+        "height": 200,
+        "width": 965,
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

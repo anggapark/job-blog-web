@@ -99,7 +99,7 @@
                                         <span><i class="fa fa-money"></i> {{ post.salary }}</span>
                                     </div>
                                     <p> 
-                                      {{ post.description|truncatewords:60 }}
+                                      {{ post.description|truncatewords:60|safe }}
                                     </p>
                                 </div>
                             </a>

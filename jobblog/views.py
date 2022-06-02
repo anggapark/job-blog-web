@@ -25,7 +25,7 @@ class PostHome(ListView):
     ordering = ["-created_on"]
 
     def get_queryset(self):
-        return Post.objects.filter()[:3]
+        return Post.objects.filter().order_by("-created_on")[0:3]
 
 
 class PostListView(ListView):

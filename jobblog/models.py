@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from PIL import Image
 from django.conf import settings
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Post(models.Model):
@@ -32,7 +33,7 @@ class Post(models.Model):
     salary = models.CharField(max_length=50, blank=True)
     job_type = models.CharField(max_length=50, choices=jobtype)
     category = models.CharField(max_length=50, choices=categories)
-    description = models.TextField()
+    description = RichTextField()
     hours = models.CharField(max_length=50, blank=True)
 
     company_name = models.CharField(max_length=100)

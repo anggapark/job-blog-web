@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,9 @@
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script> -->
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 </head>
 
 <body>
@@ -93,11 +97,11 @@
 
                       <!-- Choose Salary -->
                       <div class="form">
-                        <h5>{{ form.salary.label_tag }}</h5>
-                        <input class="search-field form-control {% if form.salary.errors %}is-invalid{% endif %}" type="text" name="salary" id="id_salary" placeholder="e.g. Rp 5jt" value="" />
-                        {% if form.salary.errors %}
-                        <div class="invalid-feedback">{{ form.salary.errors }}</div>
-                        {% endif %}
+                          <h5>{{ form.salary.label_tag }}</h5>
+                          <input class="search-field form-control {% if form.salary.errors %}is-invalid{% endif %}" type="text" name="salary" id="id_salary" placeholder="e.g. Rp 5jt" value="" />
+                          {% if form.salary.errors %}
+                            <div class="invalid-feedback">{{ form.salary.errors }}</div>
+                          {% endif %}
                       </div>
 
                       <!-- Job Type -->
@@ -110,7 +114,7 @@
                           {% if form.job_type.errors %}
                             <div class="invalid-feedback">{{ form.job_type.errors }}</div>
                           {% endif %}
-                        </div>
+                      </div>
 
                       <!-- Choose Category -->
                       <div class="form">
@@ -132,7 +136,7 @@
                       <!-- Description -->
                       <div class="form">
                           <h5>{{ form.description.label_tag }}</h5>
-                          <textarea class="WYSIWYG form-control {% if form.description.errors %}is-invalid{% endif %}"  cols="40" rows="3" name="description" id="id_description" spellcheck="true">{{ form.description.value|default:"" }}</textarea>
+                          {{ form.description|add_class:"ckeditor" }}
                           {% if form.description.errors %}
                             <div class="invalid-feedback">{{ form.description.errors }}</div>
                           {% endif %}

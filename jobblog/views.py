@@ -38,7 +38,7 @@ class PostListView(ListView):
 # access detail post
 class PostDetailView(DetailView):
     model = Post
-    template_name = "jobblog/job-detail.html"
+    template_name = "jobblog/job_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,7 +52,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = "jobblog/post_form.html"
+    # template_name = "jobblog/post_form.html"
     fields = [
         "title",
         "salary",
@@ -79,7 +79,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = [
         "title",
@@ -94,27 +94,28 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         "logo",
     ]
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        update = True
+        context["update"] = update
 
-    # if user pass test condition (update post)
-    def test_func(self):
-        post = self.get_object()
-        # check if the user is the author of the post
-        if self.request.user == post.author:
-            return True
-        return False
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, "Your post has been updated successfully.")
+        return reverse_lazy("jobblog:jobs")
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)
 
 
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    success_url = "/"  # Provide a success_url.
+    template_name = "jobblog/post_confirm_delete.html"
 
-    # see if user pass test condition (update post)
-    def test_func(self):
-        post = self.get_object()
-        # check if the user is the author of the post
-        if self.request.user == post.author:
-            return True
-        return False
+    def get_success_url(self):
+        messages.success(self.request, "Your post has been deleted successfully.")
+        return reverse_lazy("jobblog:jobs")
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)

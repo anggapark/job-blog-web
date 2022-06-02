@@ -10,8 +10,11 @@
     <title>Job Detail</title>
 
     <!-- CSS -->
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/green.css' %}" id="colors">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/delete-modal.css' %}">
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -148,8 +151,37 @@
                 </div>
 
             </div>
-            <!-- Widgets / End -->
+          </div>
+          <!-- Widgets / End -->
 
+          <!-- manage post -->
+          {% if post.author == request.user %}
+            <div class="container">
+              <h3>Manage Post</h3>
+              <div class="sixteen columns">
+                <table class="manage-table responsive-table">
+                  <tr>
+                      <th><i class="fa fa-file-text"></i> Title</th>
+                      <th><i class="fa fa-calendar"></i> Date Posted</th>
+                      <th></th>
+                  </tr>
+                  <tr>
+                      <td class="title"><a href="#">{{ object.title }}</a></td>
+                      <td>
+                          Created: {{ object.created_on|date:"N j, Y" }}
+                          <br>
+                          Last Updated: {{ object.updated_on|timesince }}
+                      </td>
+                      <td class="action">
+                          <a href="{% url 'jobblog:post_update' object.id %}"><i class="fa fa-pencil"></i> Edit</a>
+                          <a href="{% url 'jobblog:post_delete' object.id %}" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fa fa-remove"></i> Delete</a>
+                      </td>
+                    </table>
+                  </tr>
+            </div>
+          {% endif %}
+          <!-- end of manage post -->
+          </div>
 
         </div>
         <!-- ======================================== end of Content ========================================-->

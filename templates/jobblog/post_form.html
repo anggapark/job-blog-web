@@ -145,7 +145,7 @@
                       <!-- hours -->
                       <div class="form">
                           <h5>{{ form.hours.label_tag }}</h5>
-                          <input class="form-control {% if form.hours.errors %}is-invalid{% endif %}" type="text" placeholder="Enter an hours per Week" name="Hours" id="id_Hours">
+                          <input class="form-control {% if form.hours.errors %}is-invalid{% endif %}" type="text" placeholder="Enter an hours per Week" name="hours" id="id_hours">
                           {% if form.hours.errors %}
                             <div class="invalid-feedback">{{ form.hours.errors }}</div>
                           {% endif %}

@@ -36,11 +36,15 @@
                         <ul id="responsive">
                             <li><a href="{% url 'jobblog:home' %}" id="current">Home</a></li>
                             <li><a href="{% url 'jobblog:jobs' %}">Job List</a></li>
-                            <li><a href="{% url 'jobblog:post-create' %}">Post a Job</a></li>
+                            <li><a href="{% url 'jobblog:post_create' %}" lass="{% if request.path == '/post/create/' %}active{% endif %}">Post a Job</a></li>
                             <li><a href="manage-jobs.html">Manage Jobs</a></li>
                         </ul>
                         <ul class="float-right">
+                        {% if request.user.is_authenticated %}
                             <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-out-alt"></i> Log In</a></li>
+                        {% endif %}
                         </ul>
                     </nav>
 
@@ -59,6 +63,15 @@
         <div id="banner" style="background: url('static/img/home.svg')">
             <div class="container">
                 <div class="sixteen columns">
+
+                <!-- login/register notification -->
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} 
+                    alert-dismissible fade show">
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    {% endfor %}
 
                     <div class="search-container">
 
@@ -87,23 +100,24 @@
             <div class="eleven columns" id="jobs">
                 <h3 class="margin-bottom-25">Recent Jobs</h3>
                 <ul class="job-list">
-
+                  {% for post in posts %}
                     <li class="highlighted">
-                        <a href="job-detail.html">
-                            <img src="{% static 'img/loop-studios.svg' %}" alt="">
+                        <a href="{% url 'jobblog:post' post.id post.slug %}">
+                            <img src="{{ post.logo }}" alt="{{ post.title }}">
                             <div class="job-list-content">
-                                <h4>Logo Designer <span class="full-time">Full-Time</span></h4>
+                                <h4>{{ post.title }} <span class="full-time">{{ post.job_type }}</span></h4>
                                 <div class="job-icons">
-                                    <span><i class="fa fa-briefcase"></i> Loop Studios</span>
-                                    <span><i class="fa fa-map-marker"></i> Bogor</span>
-                                    <span><i class="fa fa-money"></i> Rp 6jt</span>
+                                    <span><i class="fa fa-briefcase"></i> L{{ post.company_name }}</span>
+                                    <span><i class="fa fa-map-marker"></i> {{ post.location }}</span>
+                                    <span><i class="fa fa-money"></i> {{ post.salary }}</span>
                                 </div>
                             </div>
                         </a>
                         <div class="clearfix"></div>
                     </li>
+                  {% endfor %}
 
-                    <li>
+                    <!-- <li>
                         <a href="job-detail.html">
                             <img src="{% static 'img/faceit.svg' %}" alt="">
                             <div class="job-list-content">
@@ -131,7 +145,7 @@
                             </div>
                         </a>
                         <div class="clearfix"></div>
-                    </li>
+                    </li> -->
 
                 </ul>
 

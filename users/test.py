@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.test import TestCase
 from django.urls import reverse
 
-from ..models import User
-from ..forms import SignUpForm
+from .models import User
+from .forms import SignUpForm
 
 # Create your tests here.
 
@@ -33,8 +33,10 @@ class TestSignUpView(TestCase):
         self.assertTrue(user.is_authenticated)
 
     def test_new_user_is_registered(self):
-        # We can check that a user has been registered by trying to find
-        # it in the database but I prefer the method with count()
+        """
+        We can check that a user has been registered by trying to find
+        it in the database with count()
+        """
         nb_old_users = User.objects.count()  # count users before a request
         self.client.post(reverse("users:register"), self.data)
         nb_new_users = User.objects.count()  # count users after
@@ -47,7 +49,7 @@ class TestSignUpView(TestCase):
         login = self.client.login(email="user1@gmail.com", password="1234")
         response = self.client.get(reverse("users:register"))
 
-        self.assertRedirects(response, reverse("core:home"))
+        self.assertRedirects(response, reverse("jobblog:home"))
 
     def test_invalid_form(self):
         # We don't give a username

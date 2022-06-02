@@ -4,6 +4,7 @@ from .models import Post
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.utils.text import slugify
+from django.utils import timezone
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,  # redirect unlogged user to login page when create post
     UserPassesTestMixin,  # to make sure only the writer can update the post
@@ -18,9 +19,13 @@ from django.views.generic import (
 
 # Create your views here.
 class PostHome(ListView):
-    pass
-    # context = {"posts": Post.objects.all()}  # buat {{variabel}} template home html
-    # return render(request, "jobblog/index.html", context)
+    model = Post
+    template_name = "jobblog/index.html"
+    context_object_name = "posts"
+    ordering = ["-created_on"]
+
+    def get_queryset(self):
+        return Post.objects.filter()[:3]
 
 
 class PostListView(ListView):
@@ -47,6 +52,35 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
+    template_name = "jobblog/post_form.html"
+    fields = [
+        "title",
+        "salary",
+        "job_type",
+        "category",
+        "description",
+        "hours",
+        "company_name",
+        "location",
+        "website",
+        "logo",
+    ]
+
+    def get_success_url(self):
+        messages.success(self.request, "Your post has been created successfully.")
+        return reverse_lazy("jobblog:jobs")
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.slug = slugify(form.cleaned_data["title"])
+        obj.save()
+        # form.save_m2m()
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
     fields = [
         "title",
         "location",
@@ -60,27 +94,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         "logo",
     ]
 
-    def get_success_url(self):
-        messages.success(self.request, "Your post has been created successfully.")
-        return reverse_lazy("core:home")
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.author = self.request.user
-        obj.slug = slugify(form.cleaned_data["title"])
-        obj.save()
-        return super().form_valid(form)
-
-
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ["title", "content"]
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-    # see if user pass test condition (update post)
+    # if user pass test condition (update post)
     def test_func(self):
         post = self.get_object()
         # check if the user is the author of the post

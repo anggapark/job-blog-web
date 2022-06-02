@@ -28,25 +28,24 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    location = models.CharField(max_length=50, null=True)
-    # company = models.CharField(max_length=70)
-    salary = models.CharField(max_length=50, null=True)
+    location = models.CharField(max_length=50, blank=True)
+    salary = models.CharField(max_length=50, blank=True)
     job_type = models.CharField(max_length=50, choices=jobtype)
     category = models.CharField(max_length=50, choices=categories)
     description = models.TextField()
-    hours = models.CharField(max_length=50, null=True)
+    hours = models.CharField(max_length=50, blank=True)
 
     company_name = models.CharField(max_length=100)
     website = models.CharField(max_length=200)
     logo = models.ImageField(
-        default="img/account.svg", upload_to="logo", blank=True, null=True
+        default="account.svg", upload_to="logo", blank=True, null=True
     )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse(
-            "post-detail", kwargs={"pk": self.pk}
-        )  # return full path as string
+    # def get_absolute_url(self):
+    #     return reverse(
+    #         "post-detail", kwargs={"pk": self.pk}
+    #     )  # return full path as string

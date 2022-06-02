@@ -36,11 +36,15 @@
                         <ul id="responsive">
                             <li><a href="{% url 'jobblog:home' %}">Home</a></li>
                             <li><a href="{% url 'jobblog:jobs' %}">Job List</a></li>
-                            <li><a href="{% url 'jobblog:post-create' %}" id="current">Post a Job</a></li>
+                            <li><a href="{% url 'jobblog:post_create' %}" id="current">Post a Job</a></li>
                             <li><a href="manage-jobs.html">Manage Jobs</a></li>
                         </ul>
                         <ul class="float-right">
-                            <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                          {% if request.user.is_authenticated %}
+                          <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                          {% else %}
+                              <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-out-alt"></i> Log In</a></li>
+                          {% endif %}
                         </ul>
                     </nav>
 
@@ -61,26 +65,25 @@
             <div class="container">
 
                 <div class="sixteen columns">
-                    <h2><i class="fa fa-plus-circle"></i> Add Job</h2>
+                    <h2><i class="fa fa-plus-circle"></i> {% if update %}Update Job{% else %}Add Job{% endif %}</h2>
                 </div>
 
             </div>
         </div>
 
 
-        <!-- Content
-================================================== -->
+        <!-- ========================================== Content ================================================== -->
         <div class="container">
 
             <!-- Submit Page -->
             <div class="sixteen columns">
                 <div class="submit-page">
-                  <form method="POST" enctype="multipart/form-data">
+                  <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
                       <!-- Title -->
                       <div class="form">
-                          <h5>Job Title</h5>
+                          <h5>{{ form.title.label_tag }}</h5>
                           <input class="search-field form-control {% if form.title.errors %}is-invalid{% endif %}" type="text" placeholder="" name="title"
                           id="id_title" value="{{ form.title.value|default:"" }}" />
                           {% if form.title.errors %}
@@ -90,7 +93,7 @@
 
                       <!-- Choose Salary -->
                       <div class="form">
-                        <h5>Salary</h5>
+                        <h5>{{ form.salary.label_tag }}</h5>
                         <input class="search-field form-control {% if form.salary.errors %}is-invalid{% endif %}" type="text" name="salary" id="id_salary" placeholder="e.g. Rp 5jt" value="" />
                         {% if form.salary.errors %}
                         <div class="invalid-feedback">{{ form.salary.errors }}</div>
@@ -99,48 +102,48 @@
 
                       <!-- Job Type -->
                       <div class="form">
-                          <h5>Job Type</h5>
-                          <select data-placeholder=" Full-Time" class="chosen-select-no-single form-control {% if form.job_type.errors %}is-invalid{% endif %}" name="job_type" id="id_job_type">
-                            <option value="1">Full-Time</option>
-                            <option value="2">Part-Time</option>
+                          <h5>{{ form.job_type.label_tag }}</h5>
+                          <select placeholder=" ------" class="chosen-select-no-single form-control {% if form.job_type.errors %}is-invalid{% endif %}" name="job_type" id="id_job_type">
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
                           </select>
-                          {% if form.location.errors %}
-                          <div class="invalid-feedback">{{ form.location.errors }}</div>
+                          {% if form.job_type.errors %}
+                            <div class="invalid-feedback">{{ form.job_type.errors }}</div>
                           {% endif %}
-                            </div>
+                        </div>
 
                       <!-- Choose Category -->
                       <div class="form">
-                          <h5>Category</h5>
-                          <select data-placeholder=" Web Developers" name="category" id="id_category" class="chosen-select-no-single form-control {% if form.category.errors %}is-invalid{% endif %}">
-                              <option value="1">Web Developers</option>
-                              <option value="2">Mobile Developers</option>
-                              <option value="3">UI/UX Designer</option>
-                              <option value="4">Machine Learning Engineer</option>
-                              <option value="5">Data Scientist</option>
-                              <option value="6">Game Developer</option>
-                              <option value="7">Security Engineer</option>
+                          <h5>{{ form.category.label_tag }}</h5>
+                          <select placeholder=" ------" name="category" id="id_category" class="chosen-select-no-single form-control {% if form.category.errors %}is-invalid{% endif %}">
+                              <option value="Web Developers">Web Developers</option>
+                              <option value="Mobile Developers">Mobile Developers</option>
+                              <option value="UI/UX Designer">UI/UX Designer</option>
+                              <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                              <option value="Data Scientist">Data Scientist</option>
+                              <option value="Game Developer">Game Developer</option>
+                              <option value="Security Engineer">Security Engineer</option>
                           </select>
                           {% if form.category.errors %}
-                          <div class="invalid-feedback">{{ form.category.errors }}</div>
+                            <div class="invalid-feedback">{{ form.category.errors }}</div>
                           {% endif %}
                       </div>
 
                       <!-- Description -->
                       <div class="form">
-                          <h5>Description</h5>
-                          <textarea class="WYSIWYG form-control {% if form.description.errors %}is-invalid{% endif %}"  cols="40" rows="3" name="description" id="id_description" spellcheck="true"></textarea>
+                          <h5>{{ form.description.label_tag }}</h5>
+                          <textarea class="WYSIWYG form-control {% if form.description.errors %}is-invalid{% endif %}"  cols="40" rows="3" name="description" id="id_description" spellcheck="true">{{ form.description.value|default:"" }}</textarea>
                           {% if form.description.errors %}
-                          <div class="invalid-feedback">{{ form.description.errors }}</div>
+                            <div class="invalid-feedback">{{ form.description.errors }}</div>
                           {% endif %}
                       </div>
 
                       <!-- hours -->
                       <div class="form">
-                          <h5>Hours</h5>
-                          <input class="form-control {% if form.hours.errors %}is-invalid{% endif %}" type="text" placeholder="Enter an working hours" name="Hours" id="id_Hours">
-                          {% if form.Hours.errors %}
-                          <div class="invalid-feedback">{{ form.Hours.errors }}</div>
+                          <h5>{{ form.hours.label_tag }}</h5>
+                          <input class="form-control {% if form.hours.errors %}is-invalid{% endif %}" type="text" placeholder="Enter an hours per Week" name="Hours" id="id_Hours">
+                          {% if form.hours.errors %}
+                            <div class="invalid-feedback">{{ form.hours.errors }}</div>
                           {% endif %}
                       </div>
 
@@ -151,46 +154,49 @@
 
                       <!-- Company Name -->
                       <div class="form">
-                          <h5>Company Name</h5>
+                          <h5>{{ form.company_name.label_tag }}</h5>
                           <input class="form-control {% if form.company_name.errors %}is-invalid{% endif %}" type="text" placeholder="Enter the name of the company" name="company_name" id="id_company_name">
                           {% if form.company_name.errors %}
-                          <div class="invalid-feedback">{{ form.company_name.errors }}</div>
+                            <div class="invalid-feedback">{{ form.company_name.errors }}</div>
                           {% endif %}
                       </div>
 
                       <!-- Location -->
                       <div class="form">
-                        <h5>Location <span>(optional)</span></h5>
+                        <h5>{{ form.location.label_tag }} <span>(optional)</span></h5>
                         <input class="search-field form-control {% if form.location.errors %}is-invalid{% endif %}" name="location" id="id_location" type="text" placeholder="e.g. Bogor" value="{{ form.location.value|default:"" }}" />
-                        <p class="note">Leave this blank if the location is not important</p>
+                        <!-- <p class="note">Leave this blank if the location is not important</p> -->
                         {% if form.location.errors %}
-                        <div class="invalid-feedback">{{ form.location.errors }}</div>
+                          <div class="invalid-feedback">{{ form.location.errors }}</div>
                         {% endif %}
-                    </div>
+                      </div>
 
                       <!-- Website -->
                       <div class="form">
-                          <h5>Website <span>(optional)</span></h5>
+                          <h5>{{ form.website.label_tag }} <span>(optional)</span></h5>
                           <input class="form-control {% if form.website.errors %}is-invalid{% endif %}" type="text" placeholder="http://" name="website" id="id_website">
                           {% if form.website.errors %}
-                          <div class="invalid-feedback">{{ form.website.errors }}</div>
+                            <div class="invalid-feedback">{{ form.website.errors }}</div>
                           {% endif %}
                       </div>
 
                       <!-- Logo -->
                       <div class="form">
-                          <h5>Logo <span>(optional)</span></h5>
+                          <h5>{{ form.logo.label_tag }} <span>(optional)</span></h5>
                           <label class="upload-btn">
                           <input type="file" multiple class="{% if form.logo.errors %}is-invalid{% endif %}"
                           name="logo" id="id_logo" accept="logo/*" />
                           </label>
-                          <span class="fake-input">No file selected</span>
                           {% if form.logo.errors %}
                             <div class="invalid-feedback">{{ form.logo.errors }}</div>
                           {% endif %}
                       </div>
+                      
                       <div class="divider margin-top-0"></div>
-                    <button class="button big margin-top-5" type="submit">Post</button>
+                    <button 
+                      type="submit" class="button big margin-top-5">{% if update %}Update{% else %}Post{% endif %}
+                    </button>
+                      
                   </form>
 
                 </div>
@@ -199,7 +205,7 @@
         </div>
 
 
-        <!-- ================================ Footer ================================ -->
+<!-- ============================================== Footer ============================================== -->
 
         <div class="margin-top-15"></div>
 

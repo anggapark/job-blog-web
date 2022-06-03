@@ -20,6 +20,6 @@ Tujuan dari program ini adalah agar pencari kerja terutama di bidang IT mudah un
 
 ## Tech Stack
 |    Komponen   |           Teknologi             |
-| ------------- |:-------------------------------:|
+| ------------- |---------------------------------|
 | Frontend      | HTML, CSS, Javascript, Jquery   |
 | Backend       | Python, Django, SQLite          | 

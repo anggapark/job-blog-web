@@ -4,11 +4,11 @@ Repositori untuk projek tugas akhir KOM1231-Rekayasa Perangkat Lunak (RPL)
 ## Anggota Kelompok
 Paralel : 1 <br />
 Kelompok : 9
-|             Nama           | NIM           |
-| -------------------------- |:-------------:|
-| Muhammad Dzaki Fahreza     | G6401201001   |
-| Dzakiyyah Hasbi. H         | G6401201006   | 
-| Airlangga Parikesit Wibowo | G6401201095   | 
+|             Nama           | NIM           |      Role      |
+| -------------------------- |:-------------:|:--------------:|
+| Muhammad Dzaki Fahreza     | G6401201001   | Frontend       |
+| Dzakiyyah Hasbi. H         | G6401201006   | UI UX Designer |
+| Airlangga Parikesit Wibowo | G6401201095   | Backend        |
 <br />
 
 # JobIT

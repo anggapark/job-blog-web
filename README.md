@@ -1,5 +1,5 @@
 # job-blog-web
-Repositori untuk projek tugas akhir KOM1231-Rekayasa Perangkat Lunak (RPL)
+Repositori untuk projek tugas akhir KOM1231-Rekayasa Perangkat Lunak (RPL) <br />
 
 ## Anggota Kelompok
 Paralel : 1 <br />
